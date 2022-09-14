@@ -1,4 +1,4 @@
-import math
+import math # importing math library
 #function for range division and corresponding to that the value of count of an octant
 def octact_identification(mod=5000):
     data.at[1,'Octant ID'] = 'Mod ' + str(mod)   
