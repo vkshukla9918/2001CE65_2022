@@ -1,7 +1,9 @@
-def factorial(i):
-    if(i==1 or i == 0):
-        return 1
-    return i*factorial(i-1)
+# def octact_identification(mod=5000):
+###Code
+# mod=5000
+# octact_identification(mod)
+import pandas as pd                     #imported pandas library
+data = pd.read_csv('octant_input.csv')  #reading 'octant_input.csv' file 
 
-i = int(input("Enter a number: ") ) 
-print(factorial(i))
+
+
