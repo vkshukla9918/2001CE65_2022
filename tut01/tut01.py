@@ -11,7 +11,7 @@ def octact_identification(mod=5000):
         if((i+1)*mod-1) < len(data):
             data.at[i+2,'Octant ID'] = str((i)*mod)+'-'+str((i+1)*mod-1)
         else:
-            data.at[i+2,'Octant ID'] = str((i-1)*mod)+'-'+str(len(data)-1)
+            data.at[i+2,'Octant ID'] = str((i)*mod)+'-'+str(len(data)-1)
     
            
     #using iloc and value_counts for count of octant in the dicided range.    
