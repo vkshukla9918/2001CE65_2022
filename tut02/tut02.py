@@ -105,3 +105,18 @@ for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
     data.at[13+y,x] =dict[-3][int(x)]
     data.at[14+y,x] =dict[4][int(x)]
     data.at[15+y,x] =dict[-4][int(x)]
+
+    def octant_transition_count(mod=5000):  #creating new function for mod transition count
+        dict_mod = {1:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+      -1:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+       2:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+      -2:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+       3:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+      -3:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+       4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+      -4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0}}
+    for i in range(y):
+        data.at[19+y+i*13,' ']='Mod Transition Count'
+        data.at[20+y+i*13,'1'] = 'To'
+        data.at[21+y+i*13,' '] = 'Count'   # columns for mod transition count
+        data.at[22+y+i*13,'']= 'From'
