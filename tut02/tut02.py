@@ -1,13 +1,5 @@
-def octant_transition_count(mod=5000):
-###Code
+import math #importing maths library
+import pandas as pd #importing pandas library
+data = pd.read_excel("D:\\Documents\\GitHub\\2001CE65_2022\\tut02\\input_octant_transition_identify.xlsx")
+#read excel file using pandas dataframe
 
-from platform import python_version
-ver = python_version()
-
-if ver == "3.8.10":
-    print("Correct Version Installed")
-else:
-    print("Please install 3.8.10. Instruction are present in the GitHub Repo/Webmail. Url: https://pastebin.com/nvibxmjw")
-
-mod=5000
-octant_transition_count(mod)
