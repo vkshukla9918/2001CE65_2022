@@ -77,4 +77,20 @@ mod=5000        #changing variable for range
 y = math.ceil(len(data)/mod)
 
 
+data.at[8+y,'']= 'From'   #creating new columns and row for overall transition count table
+data.at[5+y,' '] ='Overall Transition Count'
+data.at[6+y,'1'] = 'To'
+data.at[7+y,' '] = 'count'
+for i, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+    data.at[8+y+i,' '] = x
+    data.at[7+y,x] = x
 
+dict = {1:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+      -1:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+       2:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},  #created nested dictionaryfor the value of transition count initial at 0
+      -2:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+       3:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+      -3:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+       4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+      -4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0}}
+        
