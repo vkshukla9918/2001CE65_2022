@@ -1,6 +1,6 @@
 import math #importing maths library
 import pandas as pd #importing pandas library
-data = pd.read_excel("D:\\Documents\\GitHub\\2001CE65_2022\\tut02\\input_octant_transition_identify.xlsx")
+data = pd.read_excel("input_octant_transition_identify.xlsx")
 #read excel file using pandas dataframe
 
 data.at[0,'U Avg'] = data['U'].mean()
@@ -153,4 +153,9 @@ for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
             for j,x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
                 data.at[22+y+j+i*13,' '] = x
                 data.at[21+y+i*13,x] = x
+octact_identification(mod)
+octant_transition_count(mod)    #calling functions
+
+data.to_excel("output_octant_transition_identify.xlsx") #printing output in excel file
+
         
