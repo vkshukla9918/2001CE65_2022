@@ -124,7 +124,7 @@ for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
                 data.at[20+y+i*13,' '] = str((i)*mod)+'-'+str((i+1)*mod-1)
                 for j in range(i*mod,(i+1)*mod):
                     dict_mod[octact[j]][octact[j+1]] += 1
-                for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+                for k, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
                     data.at[22+y+i*13,x] = dict_mod[1][int(x)]
                     data.at[23+y+i*13,x] = dict_mod[-1][int(x)]
                     data.at[24+y+i*13,x] =dict_mod[2][int(x)]
@@ -133,6 +133,16 @@ for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
                     data.at[27+y+i*13,x] =dict_mod[-3][int(x)]
                     data.at[28+y+i*13,x] =dict_mod[4][int(x)]
                     data.at[29+y+i*13,x] =dict_mod[-4][int(x)]
+                    dict_mod[1][int(x)] = 0
+                    dict_mod[-1][int(x)] = 0
+                    dict_mod[2][int(x)] = 0
+                    dict_mod[-2][int(x)] = 0  #making here again all  0
+                    dict_mod[3][int(x)] = 0
+                    dict_mod[-3][int(x)] = 0
+                    dict_mod[4][int(x)] = 0
+                    dict_mod[-4][int(x)] = 0
+
+                
         
             else:
                 data.at[20+y+i*13,' '] = str((i)*mod)+'-'+str(len(data)-1)
