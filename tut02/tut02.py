@@ -115,8 +115,42 @@ for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
       -3:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
        4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
       -4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0}}
-    for i in range(y):
-        data.at[19+y+i*13,' ']='Mod Transition Count'
-        data.at[20+y+i*13,'1'] = 'To'
-        data.at[21+y+i*13,' '] = 'Count'   # columns for mod transition count
-        data.at[22+y+i*13,'']= 'From'
+        for i in range(y):
+            data.at[19+y+i*13,' ']='Mod Transition Count'
+            data.at[20+y+i*13,'1'] = 'To'
+            data.at[21+y+i*13,' '] = 'Count'   #columns for mod transition count
+            data.at[22+y+i*13,'']= 'From'
+            if((i+1)*mod-1) < len(data)-1:
+                data.at[20+y+i*13,' '] = str((i)*mod)+'-'+str((i+1)*mod-1)
+                for j in range(i*mod,(i+1)*mod):
+                    dict_mod[octact[j]][octact[j+1]] += 1
+                for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+                    data.at[22+y+i*13,x] = dict_mod[1][int(x)]
+                    data.at[23+y+i*13,x] = dict_mod[-1][int(x)]
+                    data.at[24+y+i*13,x] =dict_mod[2][int(x)]
+                    data.at[25+y+i*13,x] =dict_mod[-2][int(x)] #fillimg the table upto second last range for transition count
+                    data.at[26+y+i*13,x] =dict_mod[3][int(x)]
+                    data.at[27+y+i*13,x] =dict_mod[-3][int(x)]
+                    data.at[28+y+i*13,x] =dict_mod[4][int(x)]
+                    data.at[29+y+i*13,x] =dict_mod[-4][int(x)]
+        
+            else:
+                data.at[20+y+i*13,' '] = str((i)*mod)+'-'+str(len(data)-1)
+                for j in range(i*mod,len(data)-1):
+                    dict_mod[octact[j]][octact[j+1]] += 1
+                for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+                    data.at[22+y+i*13,x] = dict_mod[1][int(x)]
+                    data.at[23+y+i*13,x] = dict_mod[-1][int(x)]
+                    data.at[24+y+i*13,x] =dict_mod[2][int(x)]
+                    data.at[25+y+i*13,x] =dict_mod[-2][int(x)]
+                    data.at[26+y+i*13,x] =dict_mod[3][int(x)]       #for lat range which would not be of 5000 length
+                    data.at[27+y+i*13,x] =dict_mod[-3][int(x)]
+                    data.at[28+y+i*13,x] =dict_mod[4][int(x)]
+                    data.at[29+y+i*13,x] =dict_mod[-4][int(x)]
+        
+    
+    
+            for j,x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+                data.at[22+y+j+i*13,' '] = x
+                data.at[21+y+i*13,x] = x
+        
