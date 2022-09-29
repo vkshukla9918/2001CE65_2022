@@ -94,3 +94,14 @@ dict = {1:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
        4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
       -4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0}}
         
+for i in range(len(data)-1):
+    dict[octact[i]][octact[i+1]] += 1
+for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+    data.at[8+y,x] = dict[1][int(x)]
+    data.at[9+y,x] = dict[-1][int(x)]
+    data.at[10+y,x] =dict[2][int(x)]       
+    data.at[11+y,x] =dict[-2][int(x)]    #filling the trasition count in table using loop
+    data.at[12+y,x] =dict[3][int(x)]
+    data.at[13+y,x] =dict[-3][int(x)]
+    data.at[14+y,x] =dict[4][int(x)]
+    data.at[15+y,x] =dict[-4][int(x)]
