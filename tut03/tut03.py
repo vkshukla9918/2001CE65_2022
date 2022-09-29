@@ -117,3 +117,27 @@ for i in range(x-1):  #appending subsequences of a octant
         if h>0:
             max_4.append(h+1)
             h = 0
+
+data[' '] = ' '
+for j,x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+    data.at[j,'count'] = x
+data['Longest Subsquence Length'] = ' '
+data['Count'] = ' '
+
+data.at[0,'Longest Subsquence Length'] = max(max1)
+data.at[0,'Count'] = max1.count(max(max1))
+data.at[1,'Longest Subsquence Length'] = max(max_1)
+data.at[1,'Count'] = max_1.count(max(max_1))
+data.at[2,'Longest Subsquence Length'] = max(max2)
+data.at[2,'Count'] = max2.count(max(max2))
+data.at[3,'Longest Subsquence Length'] = max(max_2)
+data.at[3,'Count'] = max_2.count(max(max_2))
+data.at[4,'Longest Subsquence Length'] = max(max3)
+data.at[4,'Count'] = max3.count(max(max3))
+data.at[5,'Longest Subsquence Length'] = max(max_3)
+data.at[5,'Count'] = max_3.count(max(max_3))
+data.at[6,'Longest Subsquence Length'] = max(max4)
+data.at[6,'Count'] = max4.count(max(max4))
+data.at[7,'Longest Subsquence Length'] = max(max_4)
+data.at[7,'Count'] = max_4.count(max(max_4))
+
