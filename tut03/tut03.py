@@ -1,5 +1,9 @@
 import pandas as pd    #importing pandas library
-data = pd.read_excel("input_octant_longest_subsequence.xlsx") #reading input file
+try:
+    data = pd.read_excel("input_octant_longest_subsequence.xlsx") #reading input file
+except:
+    print("this file doesn't exist")
+    exit()
 
 data.at[0,'U Avg'] = data['U'].mean() 
 data.at[0,'V Avg'] = data['V'].mean() #average of each column
