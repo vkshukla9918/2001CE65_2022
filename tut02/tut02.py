@@ -1,7 +1,12 @@
+from logging import exception
 import math #importing maths library
 import pandas as pd #importing pandas library
-data = pd.read_excel("input_octant_transition_identify.xlsx")
+try:
+    data = pd.read_excel("input_octant_transition_identify.xlsx")
 #read excel file using pandas dataframe
+except:
+    print("this file doesn't exist")
+    exit()
 
 data.at[0,'U Avg'] = data['U'].mean()
 data.at[0,'V Avg'] = data['V'].mean() 
@@ -85,6 +90,7 @@ for i, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
     data.at[8+y+i,' '] = x
     data.at[7+y,x] = x
 
+
 dict = {1:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
       -1:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
        2:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},  #created nested dictionaryfor the value of transition count initial at 0
@@ -163,6 +169,7 @@ for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
             for j,x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
                 data.at[22+y+j+i*13,' '] = x
                 data.at[21+y+i*13,x] = x
+
 octact_identification(mod)
 octant_transition_count(mod)    #calling functions
 
