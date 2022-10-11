@@ -1,3 +1,6 @@
+from datetime import datetime
+start_time = datetime.now()
+
 import pandas as pd    #importing pandas library
 try:
     data = pd.read_excel("input_octant_longest_subsequence.xlsx") #reading input file
@@ -147,3 +150,7 @@ data.at[7,'Count'] = max_4.count(max(max_4))
 
 
 data.to_excel("output_octant_longest_subsequence.xlsx")
+
+end_time = datetime.now()
+print('Duration of Program Execution: {}'.format(end_time - start_time))
+
