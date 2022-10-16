@@ -95,16 +95,20 @@ for j,x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
     data.at[row+1, ' count'] = 'To'
     row += 2  # increasing row by 2 foe time row and subsequence length count
     for i in range(len(data)):
-        if data.at[i, 'Octant'] == int(x):
+        if data.at[i, 'Octact'] == int(x):
             initial = i #storing the row of first time range
             occurance = 0
-            while(data.at[i, 'Octant'] == int(x)): #loop till the occurance of a number
+            while(data.at[i, 'Octact'] == int(x)): #loop till the occurance of a number
                 i += 1
                 occurance += 1
                 if(i == len(data)):
                     i -= 1     #if i becomes equal to length of data then reducing it by 1 as row will start from 0.
                     break
-
+            if occurance == longest_count[int(x)]: # if longestsubsequence length is matched then print that range of ime 
+                data.at[row, 'longest subsequence length'] = data.at[initial, 'Time']
+                data.at[row, ' count'] = data.at[i, 'Time']
+                row += 1 #shifting to next row
+            occurance = 0 #making occurance again 0 to search next longest subsequence length and their range
 
 data.to_excel("output_octant_longest_subsequence_with_range.xlsx")
 #This shall be the last lines of the code.
