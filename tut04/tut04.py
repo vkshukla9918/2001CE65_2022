@@ -4,11 +4,11 @@ start_time = datetime.now()
 
 
 import pandas as pd    #importing pandas library
-try:
-    data = pd.read_excel("input_octant_longest_subsequence_with_range.xlsx") #reading input file
-except:
-    print("this file doesn't exist")
-    exit()
+# try:
+data = pd.read_excel("input_octant_longest_subsequence_with_range.xlsx") #reading input file
+# except:
+#     print("this file doesn't exist")
+#     # exit()
 
 data.at[0,'U Avg'] = data['U'].mean() 
 data.at[0,'V Avg'] = data['V'].mean() #average of each column
@@ -79,7 +79,21 @@ for j,x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
     data.at[j,'Longest Subsquence Length']= longest_count[int(x)]
     data.at[j,'Count'] = longestoccur_count[int(x)]
 
+data['     '] = ''        #creating new columns
+data['count '] = ''
+data['longest subsequence length'] = ''
+data[' count'] = ''
 
+row  = 0
+for j,x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+    data.at[row, 'count '] = x
+    data.at[row, 'longest subsequence length'] = longest_count[int(x)]
+    data.at[row,' count'] = longestoccur_count[int(x)]
+    
+    data.at[row+1, 'count '] = 'Time'
+    data.at[row+1, 'longest subsequence length'] = 'From'
+    data.at[row+1, ' count'] = 'To'
+    row += 2  # increasing row by 2 foe time row and subsequence length count
 
 
 
