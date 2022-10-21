@@ -108,6 +108,22 @@ data.at[0,'          '] = 'Rank1 Octant ID'
 data.at[0,'           '] = 'Rank1 Octant Name'
 
 
+data.at[6+y,''] = 'Octant ID'
+data.at[6+y,' '] = 'Octant Name'
+data.at[7+y,' '] = 'Internal outward interaction'
+data.at[8+y,' '] = 'External outward interaction'
+data.at[9+y,' '] = 'External Ejection'
+data.at[10+y,' '] = 'Internal Ejection'
+data.at[11+y,' '] = 'External inward interaction'
+data.at[12+y,' '] = 'Internal inward interaction'
+data.at[13+y,' '] = 'Internal sweep'
+data.at[14+y,' '] = 'External sweep'
+data.at[6+y,'  '] = 'Count of Rank 1 Mod Values'
+
+for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+    data.at[7+j+y,''] = x
+
+
 data.to_excel("octant_output_ranking_excel.xlsx")
 #This shall be the last lines of the code.
 end_time = datetime.now()
