@@ -123,6 +123,16 @@ data.at[6+y,'  '] = 'Count of Rank 1 Mod Values'
 for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
     data.at[7+j+y,''] = x
 
+overall_count = [octant.count(1),octant.count(-1),octant.count(2),octant.count(-2),octant.count(3),octant.count(-3),octant.count(4),octant.count(-4)]
+#created a list of overall count of all octant.
+overall_count.sort(reverse = True)  #sorting in descending order 
+for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']): 
+    data.at[1,x] = overall_count.index(octant.count(int(x))) + 1 #acessing and printing the count of specific octant
+    if(overall_count[0] == octant.count(int(x))): #condition for highest count in sorted list highest count index would be 0
+        data.at[1,'          ']= x #for highest count octant id
+        if(data.at[1,'          '] == x):
+            data.at[1,'           '] = data.at[7+y+j, ' '] #highest count octant ID Name
+
 
 data.to_excel("octant_output_ranking_excel.xlsx")
 #This shall be the last lines of the code.
