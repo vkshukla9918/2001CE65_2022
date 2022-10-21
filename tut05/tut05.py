@@ -96,7 +96,16 @@ mod=5000
 y = math.ceil(len(data)/mod)
 octact_identification(mod)   #calling function for taking ranges and in that range octant count
 
-
+data.at[0,'1'] = 'Rank1'
+data.at[0,'-1'] = 'Rank2'
+data.at[0,'2'] = 'Rank3'         #counting the values of each octant and storing the value of overall count
+data.at[0,'-2'] = 'Rank4'
+data.at[0,'3'] = 'Rank5'
+data.at[0,'-3'] = 'Rank6'
+data.at[0,'4'] = 'Rank7'
+data.at[0,'-4'] = 'Rank8'
+data.at[0,'          '] = 'Rank1 Octant ID'
+data.at[0,'           '] = 'Rank1 Octant Name'
 
 
 data.to_excel("octant_output_ranking_excel.xlsx")
