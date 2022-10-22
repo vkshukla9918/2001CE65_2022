@@ -134,6 +134,22 @@ for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
             data.at[1,'           '] = data.at[7+y+j, ' '] #highest count octant ID Name
 
 
+
+
+list = []
+for i in range(y):   #same for mod in individual range as for overall count ranking
+    mod_count = [data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[1],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-1],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[2],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-2],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[3],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-3],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[4],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-4]]
+    mod_count.sort(reverse = True)
+    for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+        data.at[3+i,x] = mod_count.index(data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[int(x)]) + 1
+        if(mod_count[0] == data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[int(x)]):
+            data.at[3+i,'          ']= x
+            list.append(int(x)) #storing octant which is ranked first in mod range
+        if(data.at[3+i,'          '] == x):
+            data.at[3+i,'           '] = data.at[7+y+j, ' ']
+    
+
+
 data.to_excel("octant_output_ranking_excel.xlsx")
 #This shall be the last lines of the code.
 end_time = datetime.now()
