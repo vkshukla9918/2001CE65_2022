@@ -147,6 +147,10 @@ for i in range(y):   #same for mod in individual range as for overall count rank
             list.append(int(x)) #storing octant which is ranked first in mod range
         if(data.at[3+i,'          '] == x):
             data.at[3+i,'           '] = data.at[7+y+j, ' ']
+
+
+for i,x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+    data.at[7+y+i,'  '] = list.count(int(x)) #printing count of first ranked octant
     
 
 
