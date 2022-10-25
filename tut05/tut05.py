@@ -30,8 +30,12 @@ def octact_identification(mod=5000):
         data.at[i+3, '      '] = data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[4]
         data.at[i+3, '       '] = data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-4]
 
-import pandas as pd     #imported pandas library                
-data = pd.read_excel("octant_input.xlsx")  #reading 'octant_input' file 
+import pandas as pd     #imported pandas library     
+try:           
+    data = pd.read_excel("octant_input.xlsx")  #reading 'octant_input' file 
+except:
+    print("file doesn't exist")
+    exit()
 
 # using mean() taking average of U,V and W and making column in csv file
 data.at[0,'U_avg'] = data['U'].mean()
@@ -122,35 +126,44 @@ data.at[6+y,'  '] = 'Count of Rank 1 Mod Values'
 
 for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
     data.at[7+j+y,''] = x
-
-overall_count = [octant.count(1),octant.count(-1),octant.count(2),octant.count(-2),octant.count(3),octant.count(-3),octant.count(4),octant.count(-4)]
+try:
+    overall_count = [octant.count(1),octant.count(-1),octant.count(2),octant.count(-2),octant.count(3),octant.count(-3),octant.count(4),octant.count(-4)]
 #created a list of overall count of all octant.
-overall_count.sort(reverse = True)  #sorting in descending order 
-for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']): 
-    data.at[1,x] = overall_count.index(octant.count(int(x))) + 1 #acessing and printing the count of specific octant
-    if(overall_count[0] == octant.count(int(x))): #condition for highest count in sorted list highest count index would be 0
-        data.at[1,'          ']= x #for highest count octant id
-        if(data.at[1,'          '] == x):
-            data.at[1,'           '] = data.at[7+y+j, ' '] #highest count octant ID Name
+    overall_count.sort(reverse = True)  #sorting in descending order 
+    for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']): 
+        data.at[1,x] = overall_count.index(octant.count(int(x))) + 1 #acessing and printing the count of specific octant
+        if(overall_count[0] == octant.count(int(x))): #condition for highest count in sorted list highest count index would be 0
+            data.at[1,'          ']= x #for highest count octant id
+            if(data.at[1,'          '] == x):
+                data.at[1,'           '] = data.at[7+y+j, ' '] #highest count octant ID Name
+except:
+    print('error1')
+    exit()
 
 
 
 
 list = []
-for i in range(y):   #same for mod in individual range as for overall count ranking
-    mod_count = [data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[1],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-1],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[2],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-2],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[3],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-3],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[4],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-4]]
-    mod_count.sort(reverse = True)
-    for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
-        data.at[3+i,x] = mod_count.index(data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[int(x)]) + 1
-        if(mod_count[0] == data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[int(x)]):
-            data.at[3+i,'          ']= x
-            list.append(int(x)) #storing octant which is ranked first in mod range
-        if(data.at[3+i,'          '] == x):
-            data.at[3+i,'           '] = data.at[7+y+j, ' ']
-
-
-for i,x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
-    data.at[7+y+i,'  '] = list.count(int(x)) #printing count of first ranked octant
+try:
+    for i in range(y):   #same for mod in individual range as for overall count ranking
+        mod_count = [data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[1],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-1],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[2],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-2],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[3],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-3],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[4],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-4]]
+        mod_count.sort(reverse = True)
+        for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+            data.at[3+i,x] = mod_count.index(data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[int(x)]) + 1
+            if(mod_count[0] == data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[int(x)]):
+                data.at[3+i,'          ']= x
+                list.append(int(x)) #storing octant which is ranked first in mod range
+            if(data.at[3+i,'          '] == x):
+                data.at[3+i,'           '] = data.at[7+y+j, ' ']
+except:
+    print('error2')
+    exit()
+try:
+    for i,x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+        data.at[7+y+i,'  '] = list.count(int(x)) #printing count of first ranked octant
+except:
+    print('error3')
+    exit()
     
 
 
