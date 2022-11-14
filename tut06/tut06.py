@@ -24,6 +24,29 @@ for i in range(0,N):
         data_attendance['Roll'][i]= NaN
         data_attendance['Name'][i]= NaN
 
+data_attendance.drop('Attendance',inplace=True,axis=1)
+attendance_days =  {}  
+total_days = {}
+data_attendance['Date']=''    #column of date and time
+data_attendance['Time']=''
+for i in range(0,N):
+    time_stamp = pd.to_datetime(data_attendance['Timestamp'][i],format = "%d-%m-%Y %H:%M")
+    data_attendance['Date'][i]=time_stamp.date()
+    data_attendance['Time'][i]=time_stamp.time()  #filling with date, time and time stamp
+    data_attendance['Timestamp'][i]=time_stamp
+for j in range(0,N):
+    start_date = data_attendance['Timestamp'][j]
+    break
+for k in range(0,N):
+    last_date = data_attendance['Timestamp'][k]  
+
+while(start_date.date()<=last_date.date()):
+    if(start_date.day_name()=="Monday" or start_date.day_name()=='Thursday'):
+        attendance_days[start_date.date()]=1
+        total_days[start_date.date()]=1
+    else:
+        total_days[start_date.date()]=0
+    start_date = start_date + pd.DateOffset(days=1)
 
 
 
