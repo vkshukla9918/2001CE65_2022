@@ -42,11 +42,16 @@ for k in range(0,N):
 
 while(start_date.date()<=last_date.date()):
     if(start_date.day_name()=="Monday" or start_date.day_name()=='Thursday'):
-        attendance_days[start_date.date()]=1
+        attendance_days[start_date.date()]=1           # attendance day as per scheduled class
         total_days[start_date.date()]=1
     else:
         total_days[start_date.date()]=0
     start_date = start_date + pd.DateOffset(days=1)
+new_data = data_attendance.sort_values(by=['Roll','Date','Time'])  #sorted based on roll no. then date and time
+new_data = new_data.reset_index()
+new_data.drop('index',inplace=True,axis=1)
+new_data.drop('Timestamp',inplace=True,axis=1)   #removing columns
+
 
 
 
