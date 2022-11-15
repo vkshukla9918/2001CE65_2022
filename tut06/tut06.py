@@ -128,9 +128,9 @@ for i in range(0,len(data_registered_students)):
         stud_data.loc[0,'Absent'] += stud_data.loc[j,'Absent']
     stud_data.to_excel("output\\"+  str(x) + ".xlsx",index=False)#for each student data that is in number 221
 
+data_registered_students.to_excel("output\\attendance_report_consolidated.xlsx", index = False)
 
-
-
+#printing consolidated attendance report
 
 
 
