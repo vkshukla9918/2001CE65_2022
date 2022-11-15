@@ -5,48 +5,60 @@ from numpy import NaN
 import csv                    # imported libraries
 import openpyxl
 # reading both the files
-data_attendance = pd.read_csv("input_attendance.csv")
-data_registered_students = pd.read_csv("input_registered_students.csv")
+try:
+    data_attendance = pd.read_csv("input_attendance.csv")
+    data_registered_students = pd.read_csv("input_registered_students.csv")
+except:
+    print('error1')
+    exit()
 
 data_attendance['Roll']=''
 data_attendance['Name']=''
 N = len(data_attendance) 
 rows = 0
-for i in range(0,N):
-    a = data_attendance['Attendance'][i]   
-    if(type(a)==str):
-        b = a[0:8]      # Storing roll number 
-        c = a[9:]       # storing name 
-        data_attendance['Roll'][i]=b 
-        data_attendance['Name'][i]=c
-    else:
-        rows+=1
-        data_attendance['Roll'][i]= NaN
-        data_attendance['Name'][i]= NaN
+try:
+    for i in range(0,N):
+        a = data_attendance['Attendance'][i]   
+        if(type(a)==str):
+            b = a[0:8]      # Storing roll number 
+            c = a[9:]       # storing name 
+            data_attendance['Roll'][i]=b 
+            data_attendance['Name'][i]=c
+        else:
+            rows+=1
+            data_attendance['Roll'][i]= NaN
+            data_attendance['Name'][i]= NaN
+except:
+    print('error2')
+    exit()
 
 data_attendance.drop('Attendance',inplace=True,axis=1)
 attendance_days =  {}  
 total_days = {}
 data_attendance['Date']=''    #column of date and time
 data_attendance['Time']=''
-for i in range(0,N):
-    time_stamp = pd.to_datetime(data_attendance['Timestamp'][i],format = "%d-%m-%Y %H:%M")
-    data_attendance['Date'][i]=time_stamp.date()
-    data_attendance['Time'][i]=time_stamp.time()  #filling with date, time and time stamp
-    data_attendance['Timestamp'][i]=time_stamp
-for j in range(0,N):
-    start_date = data_attendance['Timestamp'][j]
-    break
-for k in range(0,N):
-    last_date = data_attendance['Timestamp'][k]  
+try:
+    for i in range(0,N):
+        time_stamp = pd.to_datetime(data_attendance['Timestamp'][i],format = "%d-%m-%Y %H:%M")
+        data_attendance['Date'][i]=time_stamp.date()
+        data_attendance['Time'][i]=time_stamp.time()  #filling with date, time and time stamp
+        data_attendance['Timestamp'][i]=time_stamp
+    for j in range(0,N):
+        start_date = data_attendance['Timestamp'][j]
+        break
+    for k in range(0,N):
+        last_date = data_attendance['Timestamp'][k]  
 
-while(start_date.date()<=last_date.date()):
-    if(start_date.day_name()=="Monday" or start_date.day_name()=='Thursday'):
-        attendance_days[start_date.date()]=1           # attendance day as per scheduled class
-        total_days[start_date.date()]=1
-    else:
-        total_days[start_date.date()]=0
-    start_date = start_date + pd.DateOffset(days=1)
+    while(start_date.date()<=last_date.date()):
+        if(start_date.day_name()=="Monday" or start_date.day_name()=='Thursday'):
+            attendance_days[start_date.date()]=1           # attendance day as per scheduled class
+            total_days[start_date.date()]=1
+        else:
+            total_days[start_date.date()]=0
+        start_date = start_date + pd.DateOffset(days=1)
+except:
+    print('error3')
+    exit()
 new_data = data_attendance.sort_values(by=['Roll','Date','Time'])  #sorted based on roll no. then date and time
 new_data = new_data.reset_index()
 new_data.drop('index',inplace=True,axis=1)
@@ -55,12 +67,16 @@ new_data.drop('Timestamp',inplace=True,axis=1)   #removing columns
 dates = []
 dict_dates = {}
 count = 1
-for i in attendance_days:
-    dates.append(i)
-    dict_dates[i]=count
-    count+=1
-for j in range(0,len(dates)):
-    data_registered_students['Date '+str(j+1)]='A'
+try:
+    for i in attendance_days:
+        dates.append(i)
+        dict_dates[i]=count
+        count+=1
+    for j in range(0,len(dates)):
+        data_registered_students['Date '+str(j+1)]='A'
+except:
+    print('error4')
+    exit()
 data_registered_students['Actual Lecture Taken']=''
 data_registered_students['Total Real']=''
 data_registered_students['Attendance%']=''   #new columns
@@ -127,9 +143,11 @@ for i in range(0,len(data_registered_students)):
         stud_data.loc[0,'Invalid'] += stud_data.loc[j,'Invalid']
         stud_data.loc[0,'Absent'] += stud_data.loc[j,'Absent']
     stud_data.to_excel("output\\"+  str(x) + ".xlsx",index=False)#for each student data that is in number 221
-
-data_registered_students.to_excel("output\\attendance_report_consolidated.xlsx", index = False)
-
+try:
+    data_registered_students.to_excel("output\\attendance_report_consolidated.xlsx", index = False)
+except:
+    print('error6')
+    exit()
 #printing consolidated attendance report
 
 
