@@ -32,7 +32,7 @@ def send_email():  #function for sending email
     msg.attach(MIMEText(body, 'plain'))
   
     filename = "attendance_report_consolidated.xlsx" #filename with extension to be sent
-    attachment = open("D:\\Documents\\GitHub\\2001CE65_2022\\tut06\\output\\attendance_report_consolidated.xlsx", "rb")
+    attachment = open("output\\attendance_report_consolidated.xlsx", "rb")
     p = MIMEBase('application', 'octet-stream')
     p.set_payload((attachment).read())
     encoders.encode_base64(p) #encoded into base 64
@@ -41,7 +41,7 @@ def send_email():  #function for sending email
     s = smtplib.SMTP('smtp.gmail.com', 587)
     s.starttls() #TLS for security purpose
     try:
-        s.login(fromaddr, "change me")  #App password change it
+        s.login(fromaddr, "Change me")  #App password change it
     except:
         print('password is not correct')
     text = msg.as_string()
