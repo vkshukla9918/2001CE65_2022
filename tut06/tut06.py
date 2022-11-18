@@ -1,9 +1,56 @@
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
 from datetime import datetime
 start_time = datetime.now()
 import pandas as pd
 from numpy import NaN
 import csv                    # imported libraries
 import openpyxl
+
+def send_email():  #function for sending email
+    fromaddr = "vkshukla9918@gmail.com" #sender email address
+    toaddr = "cs3842022@gmail.com" #reciever email address
+    msg = MIMEMultipart() 
+    msg['From'] = fromaddr 
+    msg['To'] = toaddr
+    msg['Subject'] = "python CS384 Tut_06" #subject of the mail
+    #body of the mail
+    body = '''
+    Dear Sir,                            
+
+    PFA
+
+    Thanks!                
+    Yours Sincerely 
+    Vivek Kumar Shukla
+    2001CE65
+    '''
+
+    msg.attach(MIMEText(body, 'plain'))
+  
+    filename = "attendance_report_consolidated.xlsx" #filename with extension to be sent
+    attachment = open("D:\\Documents\\GitHub\\2001CE65_2022\\tut06\\output\\attendance_report_consolidated.xlsx", "rb")
+    p = MIMEBase('application', 'octet-stream')
+    p.set_payload((attachment).read())
+    encoders.encode_base64(p) #encoded into base 64
+    p.add_header('Content-Disposition', "attachment; filename= %s" % filename)
+    msg.attach(p)
+    s = smtplib.SMTP('smtp.gmail.com', 587)
+    s.starttls() #TLS for security purpose
+    try:
+        s.login(fromaddr, "change me")  #App password change it
+    except:
+        print('password is not correct')
+    text = msg.as_string()
+    s.sendmail(fromaddr, toaddr, text) #sending mail
+    s.quit() #ending the session
+    print('email has been sent')
+
+
+
 # reading both the files
 try:
     data_attendance = pd.read_csv("input_attendance.csv")
@@ -86,7 +133,7 @@ for i in range(0,len(data_registered_students)):
     x = data_registered_students['Roll No'][i]
     stud_data = pd.DataFrame(columns = ['Date','Roll','Name','Total Attendance Count','Real','Duplicate','Invalid','Absent']) # new dataframe with new required columns
     dicts = {'Date':'','Roll':x,'Name':data_registered_students['Name'][i],'Total Attendance Count':0,'Real':0,'Duplicate':0,'Invalid':0,'Absent':0}
-    #dictionnary to store the data of each studnts
+    #dictionary to store the data of each studnts
     row_data = pd.DataFrame(dicts,index = [0])
     stud_data = pd.concat([stud_data,row_data],ignore_index = True)
     dict_fake = {}
@@ -151,7 +198,7 @@ except:
 #printing consolidated attendance report
 
 
-
+send_email()
 #This shall be the last lines of the code.
 end_time = datetime.now()
 print('Duration of Program Execution: {}'.format(end_time - start_time))
