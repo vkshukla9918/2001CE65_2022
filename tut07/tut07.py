@@ -288,7 +288,27 @@ for f in file_path:                #loop for iteration on each file after comple
 
 
     fill_pattern = PatternFill( start_color ='FFFF00',end_color ='FFFF00', fill_type='solid' )  #colour fill specification
+    for i in range(3, y+5):
+        for j in range(14,33):
+            ws.cell(row = i ,column = j).border = border    #border for table as per sample output file
+
+    for i in range(y+6, y+15):
+        for j in range(29,32):
+            ws.cell(row = i ,column = j).border = border
+    for i in range(3, y+8):
+        for j in range(35,44):
+            ws.cell(row = i ,column = j).border = border
     
+    for i in range(y):
+        for j in range(y+13+i*13, y+22+i*13):
+            for k in range(35,44):
+                ws.cell(row = j ,column = k).border = border
+    for i in range(3, 12):
+        for j in range(45,48):
+            ws.cell(row = i ,column = j).border = border
+    for i in range(3, 20+total_count):
+        for j in range(49,52):
+            ws.cell(row = i ,column = j).border = border  
     wb.save(output_path)
 
 
