@@ -272,6 +272,9 @@ for f in file_path:                #loop for iteration on each file after comple
                 occurance = 0 #making occurance again 0 to search next longest subsequence length and their range
     
     # mod = 5000
+    output_path = os.path.join("output\\", filename +"_vel_octant_analysis_"+"mod_"+str(mod)+".xlsx") # path of file for printing output
+    print(output_path) #code run time is very long so to get idea upto what it is done printing path in the terminal
+    data.to_excel(output_path,index = False)   #printing to file without border and colour
     
 
 #This shall be the last lines of the code.
