@@ -4,6 +4,9 @@ start_time = datetime.now()
 from pathlib import Path
 import math 
 import openpyxl                          #imported library
+from openpyxl import workbook
+from openpyxl.styles import Border,Side
+from openpyxl.styles import PatternFill
 import pandas as pd
 import glob
 import os
@@ -275,7 +278,19 @@ for f in file_path:                #loop for iteration on each file after comple
     output_path = os.path.join("output\\", filename +"_vel_octant_analysis_"+"mod_"+str(mod)+".xlsx") # path of file for printing output
     print(output_path) #code run time is very long so to get idea upto what it is done printing path in the terminal
     data.to_excel(output_path,index = False)   #printing to file without border and colour
+    wb = openpyxl.load_workbook(output_path)  #opened file using openpyxl
+    ws = wb['Sheet1'] #active sheet
+    top = Side(border_style = 'thin', color = '000000')
+    bottom = Side(border_style = 'thin', color = '000000')  #border specification
+    left = Side(border_style = 'thin', color = '000000')
+    right = Side(border_style = 'thin', color = '000000')
+    border = Border(top = top, bottom = bottom, left = left, right = right)
+
+
+    fill_pattern = PatternFill( start_color ='FFFF00',end_color ='FFFF00', fill_type='solid' )  #colour fill specification
     
+    wb.save(output_path)
+
 
 #This shall be the last lines of the code.
 end_time = datetime.now()
