@@ -1,30 +1,54 @@
 
 from datetime import datetime
 start_time = datetime.now()
-
-#Help
-def scorecard():
-	pass
-
-
-###Code
-
-from platform import python_version
-ver = python_version()
-
-if ver == "3.8.10":
-	print("Correct Version Installed")
-else:
-	print("Please install 3.8.10. Instruction are present in the GitHub Repo/Webmail. Url: https://pastebin.com/nvibxmjw")
-
-
-scorecard()
-
-
-
+import openpyxl
+import pandas as pd
+import os
+from datetime import datetime
+start_time = datetime.now()
+ #opening pakistan inning file
+Pakistan_Inning = open("Pak_Innings1.txt","r+") 
+ #opening india inning file
+India_Inning = open("india_inns2.txt","r+")
+#reading teams text file
+teams = open("teams.txt","r+")
+team = teams.readlines()
+ 
+Pakistan_team = team[0]
+#spliting at ','
+pakistan_players = Pakistan_team[23:-1:].split(",")
+#spliting at ','
+India_team = team[2]
+India_players = India_team[20:-1:].split(",")
 
 
+India  = India_Inning.readlines() 
+for i in India:         #removing line space
+    if i=='\n':
+        India.remove(i)
+      
 
-#This shall be the last lines of the code.
-end_time = datetime.now()
-print('Duration of Program Execution: {}'.format(end_time - start_time))
+Pakistan = Pakistan_Inning.readlines() 
+for i in Pakistan:
+    if i=='\n':                   #removing line space
+        Pakistan.remove(i)
+
+wb = openpyxl.Workbook()
+ws = wb.active                
+
+
+India_Fall_of_wickets=0
+Pakistan_fall_of_wickets=0
+Pakistan_Byes=0                 #created new variables for counting
+Pakistan_bowlers_total=0
+
+
+Out_Pakistan_batsman={}
+India_bowlers={}
+India_bats={}              #created empty dictionary
+Pakistan_bats={}
+Pakistan_bowlers={}
+
+
+
+
