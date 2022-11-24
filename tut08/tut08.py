@@ -307,6 +307,66 @@ for i in range(len(Pakistan_bowlers)):
     Pakistan_fall_of_wickets+=Pakistan_bowlers[Pakistan_Bowlers[i]][3]
 
 
+ws.cell(11+len(Pakistan_bats)+len(Pakistan_bowlers),1).value = "# INDIA"
+ws.cell(11+len(Pakistan_bats)+len(Pakistan_bowlers),2).value = " INNINGS"
+
+Indian_Batters=[]
+for key in India_bats.keys():
+    Indian_Batters.append(key)
+
+
+for i in range(len(India_bats)):
+    ws.cell(31+i,1).value = Indian_Batters[i]
+    ws.cell(31+i,5).value = India_bats[Indian_Batters[i]][0]
+    ws.cell(31+i,6).value = India_bats[Indian_Batters[i]][1]  #printing value of indian batters
+    ws.cell(31+i,7).value = India_bats[Indian_Batters[i]][2]
+    ws.cell(31+i,8).value = India_bats[Indian_Batters[i]][3]
+    ws.cell(31+i,9).value = India_bats[Indian_Batters[i]][4]
+
+    if Indian_Batters[i] not in out_ind_bat:
+        ws.cell(31+i,3).value = "not out"
+    else:
+        ws.cell(31+i,3).value=out_ind_bat[Indian_Batters[i]]
+
+ws["A29"] = "BATTERS"
+ws["E29"] = "RUNS"
+ws["F29"] = "BALLS"
+ws["G29"] = " 4s "
+ws["H29"] = " 6s "
+ws["I29"] = "  SR  "
+
+
+ws["A40"] = "BOWLER"
+ws["C40"] = "OVER"
+ws["D40"] = "MAIDEN"
+ws["E40"] = "RUNS"
+ws["F40"] = "WICKET"
+ws["G40"] = "NO-BALL"
+ws["H40"] = "WIDE"
+ws["I40"] = "ECONOMY"
+
+Indian_Bowlers=[]
+for key in India_bowlers.keys():
+    Indian_Bowlers.append(key)
+
+for i in range(len(India_bowlers)):
+
+    ws.cell(20+i,1).value = Indian_Bowlers[i]
+    ws.cell(20+i,3).value = India_bowlers[Indian_Bowlers[i]][0]
+    ws.cell(20+i,4).value = India_bowlers[Indian_Bowlers[i]][1]
+    ws.cell(20+i,5).value = India_bowlers[Indian_Bowlers[i]][2]  
+    ws.cell(20+i,6).value = India_bowlers[Indian_Bowlers[i]][3]     #printing value of indian bollers
+    ws.cell(20+i,7).value = India_bowlers[Indian_Bowlers[i]][4]
+    ws.cell(20+i,8).value = India_bowlers[Indian_Bowlers[i]][5]
+    ws.cell(20+i,9).value = India_bowlers[Indian_Bowlers[i]][6]
+    India_bowlers_total+=India_bowlers[Indian_Bowlers[i]][2]
+    Pakistan_fall_of_wickets+=India_bowlers[Indian_Bowlers[i]][3]
+
+Iiand_Total_Score=India_bowlers_total+Pakistan_Byes
+Pakistan_Total_Score = Pakistan_bowlers_total+ind_byes
+
+
+
 
 #This shall be the last lines of the code.
 end_time = datetime.now()
