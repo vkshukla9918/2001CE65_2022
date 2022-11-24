@@ -43,33 +43,36 @@ for f in file_path:                #loop for iteration on each file after comple
     data['W-W_avg'] = round(data['W'] - data['W_avg'][0],3)
 
     octant = []
-    for i in range(len(data)):
-        #taking new variables for acessing each element of 'U','V' and 'W' Columns
-        x = data['U-U_avg'][i]
-        y = data['V-V_avg'][i]
-        z = data['W-W_avg'][i]
-#octant identification and adding to octact list,octant value of each row.
-        if x >= 0 and y >= 0 and z >= 0:
-            octant.append(1)
-        elif x >= 0 and y >= 0 and z < 0:
-            octant.append(-1)
-        elif x < 0 and y >= 0 and z >= 0:
-            octant.append(2)
-        elif x < 0 and y >= 0 and z < 0:
-            octant.append(-2)
-        elif x < 0 and y < 0 and z >= 0:
-            octant.append(3)
-        elif x < 0 and y < 0 and z < 0:
-            octant.append(-3)
-        elif x >= 0 and y < 0 and z >= 0:
-            octant.append(4)
-        elif x >= 0 and y < 0 and z < 0:
-            octant.append(-4)
-    data['octant'] = octant.copy()   #creted new column octant and stored the value of list octant
-    data[''] = ' '
-    data[' '] = ' '
-    data.at[1,'Overall Octant Count'] = 'Octant ID'
-    data.at[2,'Overall Octant Count'] = 'Overall Count'
+    try:
+        for i in range(len(data)):
+            #taking new variables for acessing each element of 'U','V' and 'W' Columns
+            x = data['U-U_avg'][i]
+            y = data['V-V_avg'][i]
+            z = data['W-W_avg'][i]
+    #octant identification and adding to octact list,octant value of each row.
+            if x >= 0 and y >= 0 and z >= 0:
+                octant.append(1)
+            elif x >= 0 and y >= 0 and z < 0:
+                octant.append(-1)
+            elif x < 0 and y >= 0 and z >= 0:
+                octant.append(2)
+            elif x < 0 and y >= 0 and z < 0:
+                octant.append(-2)
+            elif x < 0 and y < 0 and z >= 0:
+                octant.append(3)
+            elif x < 0 and y < 0 and z < 0:
+                octant.append(-3)
+            elif x >= 0 and y < 0 and z >= 0:
+                octant.append(4)
+            elif x >= 0 and y < 0 and z < 0:
+                octant.append(-4)
+        data['octant'] = octant.copy()   #creted new column octant and stored the value of list octant
+        data[''] = ' '
+        data[' '] = ' '
+        data.at[1,'Overall Octant Count'] = 'Octant ID'
+        data.at[2,'Overall Octant Count'] = 'Overall Count'
+    except:
+        print('error1')
 
     for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
         data.at[1,' '*(j+2)] = x
@@ -104,103 +107,115 @@ for f in file_path:                #loop for iteration on each file after comple
                 data.at[2,' '*19] = data.at[5+y+j, ' '*17]
 	
     list = []
-    for i in range(y):
-        mod_count = [data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[1],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-1],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[2],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-2],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[3],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-3],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[4],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-4]]
-        mod_count.sort(reverse = True)
-        for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
-            data.at[3+i,' '*(j+10)] = mod_count.index(data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[int(x)]) + 1
-            if(mod_count[0] == data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[int(x)]):
-                data.at[3+i,' '*18]= x
-                list.append(int(x))
-                if(data.at[3+i,' '*18] == x):
-                    data.at[3+i,' '*19] = data.at[5+y+j, ' '*17]
+    try:
+        for i in range(y):
+            mod_count = [data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[1],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-1],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[2],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-2],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[3],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-3],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[4],data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[-4]]
+            mod_count.sort(reverse = True)
+            for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+                data.at[3+i,' '*(j+10)] = mod_count.index(data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[int(x)]) + 1
+                if(mod_count[0] == data['octant'].iloc[(i)*mod :(i+1)*mod].value_counts()[int(x)]):
+                    data.at[3+i,' '*18]= x
+                    list.append(int(x))
+                    if(data.at[3+i,' '*18] == x):
+                        data.at[3+i,' '*19] = data.at[5+y+j, ' '*17]
+    except:
+        print('error2')
     for i,x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
         data.at[5+y+i,' '*18] = list.count(int(x))
         data.at[5+i+y,' '*16] = x
     data[' '*20] = ' '
     data.at[2,' '*21] = 'From'
     data.at[1,'Overall transition Count'] = 'Octant#'
-    
-    for i, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
-        data.at[2+i,'Overall transition Count'] = x
-        data.at[1,' '*(22+i)] = x
-    dict = {1:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
-      -1:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
-       2:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
-      -2:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
-       3:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},   #created nested dictionaryfor the value of transition count initial at 0
-      -3:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
-       4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
-      -4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0}}
-        
-    for i in range(len(data)-1):
-        dict[octant[i]][octant[i+1]] += 1
-    for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
-        data.at[2,' '*(22+j)] = dict[1][int(x)]
-        data.at[3,' '*(22+j)] = dict[-1][int(x)]
-        data.at[4,' '*(22+j)] =dict[2][int(x)]
-        data.at[5,' '*(22+j)] =dict[-2][int(x)]        #filling the trasition count in table using loop
-        data.at[6,' '*(22+j)] =dict[3][int(x)]
-        data.at[7,' '*(22+j)] =dict[-3][int(x)]
-        data.at[8,' '*(22+j)] =dict[4][int(x)]
-        data.at[9,' '*(22+j)] =dict[-4][int(x)]
-        data.style.highlight_max(color = 'Yellow', axis = 0)
-    
-    def octant_transition_count(mod=5000):          #creating new function for mod transition count
-        dict_mod = {1:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
-          -1:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
-           2:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
-          -2:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
-           3:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
-          -3:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
-           4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
-          -4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0}}
-        for i in range(y):
-            data.at[13+i*13,'Overall transition Count']='Mod Transition Count'
-            data.at[14+i*13,' '*22] = 'To'
-            data.at[15+i*13,'Overall transition Count'] = 'octant#'    #columns for mod transition count
-            data.at[16+i*13,' '*21]= 'From'
-            if((i+1)*mod-1) < len(data)-1:
-                data.at[14+i*13,'Overall transition Count'] = str((i)*mod)+'-'+str((i+1)*mod-1)
-                for j in range(i*mod,(i+1)*mod):
-                    dict_mod[octant[j]][octant[j+1]] += 1
-                for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
-                    data.at[16+i*13,' '*(22+j)] = dict_mod[1][int(x)]
-                    data.at[17+i*13,' '*(22+j)] = dict_mod[-1][int(x)]
-                    data.at[18+i*13,' '*(22+j)] =dict_mod[2][int(x)]
-                    data.at[19+i*13,' '*(22+j)] =dict_mod[-2][int(x)]
-                    data.at[20+i*13,' '*(22+j)] =dict_mod[3][int(x)]
-                    data.at[21+i*13,' '*(22+j)] =dict_mod[-3][int(x)]      #fillimg the table upto second last range for transition count
-                    data.at[22+i*13,' '*(22+j)] =dict_mod[4][int(x)]
-                    data.at[23+i*13,' '*(22+j)] =dict_mod[-4][int(x)]
-                    
-                    dict_mod[1][int(x)] = 0
-                    dict_mod[-1][int(x)] = 0
-                    dict_mod[2][int(x)] = 0
-                    dict_mod[-2][int(x)] = 0  #making here again all  0
-                    dict_mod[3][int(x)] = 0
-                    dict_mod[-3][int(x)] = 0
-                    dict_mod[4][int(x)] = 0
-                    dict_mod[-4][int(x)] = 0
+    try:
+        for i, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+            data.at[2+i,'Overall transition Count'] = x
+            data.at[1,' '*(22+i)] = x
+        dict = {1:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+        -1:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+        2:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+        -2:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+        3:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},   #created nested dictionaryfor the value of transition count initial at 0
+        -3:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+        4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+        -4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0}}
+            
+        for i in range(len(data)-1):
+            dict[octant[i]][octant[i+1]] += 1
+        for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+            data.at[2,' '*(22+j)] = dict[1][int(x)]
+            data.at[3,' '*(22+j)] = dict[-1][int(x)]
+            data.at[4,' '*(22+j)] =dict[2][int(x)]
+            data.at[5,' '*(22+j)] =dict[-2][int(x)]        #filling the trasition count in table using loop
+            data.at[6,' '*(22+j)] =dict[3][int(x)]
+            data.at[7,' '*(22+j)] =dict[-3][int(x)]
+            data.at[8,' '*(22+j)] =dict[4][int(x)]
+            data.at[9,' '*(22+j)] =dict[-4][int(x)]
+            data.style.highlight_max(color = 'Yellow', axis = 0)
+    except:
+        print('error3')
+        exit()
+    try:
+        def octant_transition_count(mod=5000):          #creating new function for mod transition count
+            dict_mod = {1:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+            -1:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+            2:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+            -2:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+            3:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+            -3:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+            4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0},
+            -4:{1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0}}
+            for i in range(y):
+                data.at[13+i*13,'Overall transition Count']='Mod Transition Count'
+                data.at[14+i*13,' '*22] = 'To'
+                data.at[15+i*13,'Overall transition Count'] = 'octant#'    #columns for mod transition count
+                data.at[16+i*13,' '*21]= 'From'
+                if((i+1)*mod-1) < len(data)-1:
+                    data.at[14+i*13,'Overall transition Count'] = str((i)*mod)+'-'+str((i+1)*mod-1)
+                    for j in range(i*mod,(i+1)*mod):
+                        dict_mod[octant[j]][octant[j+1]] += 1
+                    for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+                        data.at[16+i*13,' '*(22+j)] = dict_mod[1][int(x)]
+                        data.at[17+i*13,' '*(22+j)] = dict_mod[-1][int(x)]
+                        data.at[18+i*13,' '*(22+j)] =dict_mod[2][int(x)]
+                        data.at[19+i*13,' '*(22+j)] =dict_mod[-2][int(x)]
+                        data.at[20+i*13,' '*(22+j)] =dict_mod[3][int(x)]
+                        data.at[21+i*13,' '*(22+j)] =dict_mod[-3][int(x)]      #fillimg the table upto second last range for transition count
+                        data.at[22+i*13,' '*(22+j)] =dict_mod[4][int(x)]
+                        data.at[23+i*13,' '*(22+j)] =dict_mod[-4][int(x)]
+                        
+                        dict_mod[1][int(x)] = 0
+                        dict_mod[-1][int(x)] = 0
+                        dict_mod[2][int(x)] = 0
+                        dict_mod[-2][int(x)] = 0  #making here again all  0
+                        dict_mod[3][int(x)] = 0
+                        dict_mod[-3][int(x)] = 0
+                        dict_mod[4][int(x)] = 0
+                        dict_mod[-4][int(x)] = 0
 
-            else:
-                data.at[14+i*13,'Overall transition Count'] = str((i)*mod)+'-'+str(len(data)-1)
-                for j in range(i*mod,len(data)-1):
-                    dict_mod[octant[j]][octant[j+1]] += 1
-                for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
-                    data.at[16+i*13,' '*(22+j)] = dict_mod[1][int(x)]
-                    data.at[17+i*13,' '*(22+j)] = dict_mod[-1][int(x)]
-                    data.at[18+i*13,' '*(22+j)] =dict_mod[2][int(x)]
-                    data.at[19+i*13,' '*(22+j)] =dict_mod[-2][int(x)]
-                    data.at[20+i*13,' '*(22+j)] =dict_mod[3][int(x)]     #for lat range which would not be of 5000 length
-                    data.at[21+i*13,' '*(22+j)] =dict_mod[-3][int(x)]
-                    data.at[22+i*13,' '*(22+j)] =dict_mod[4][int(x)]
-                    data.at[23+i*13,' '*(22+j)] =dict_mod[-4][int(x)]
-            for j,x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
-                data.at[16+j+i*13,'Overall transition Count'] = x
-                data.at[15+i*13,' '*(22+j)] = x
-
-    octant_transition_count(mod)       #calling functions
+                else:
+                    data.at[14+i*13,'Overall transition Count'] = str((i)*mod)+'-'+str(len(data)-1)
+                    for j in range(i*mod,len(data)-1):
+                        dict_mod[octant[j]][octant[j+1]] += 1
+                    for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+                        data.at[16+i*13,' '*(22+j)] = dict_mod[1][int(x)]
+                        data.at[17+i*13,' '*(22+j)] = dict_mod[-1][int(x)]
+                        data.at[18+i*13,' '*(22+j)] =dict_mod[2][int(x)]
+                        data.at[19+i*13,' '*(22+j)] =dict_mod[-2][int(x)]
+                        data.at[20+i*13,' '*(22+j)] =dict_mod[3][int(x)]     #for lat range which would not be of 5000 length
+                        data.at[21+i*13,' '*(22+j)] =dict_mod[-3][int(x)]
+                        data.at[22+i*13,' '*(22+j)] =dict_mod[4][int(x)]
+                        data.at[23+i*13,' '*(22+j)] =dict_mod[-4][int(x)]
+                for j,x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+                    data.at[16+j+i*13,'Overall transition Count'] = x
+                    data.at[15+i*13,' '*(22+j)] = x
+    except:
+        print('error4')
+        exit()
+    try:
+        octant_transition_count(mod)       #calling functions
+    except:
+        print('error5')
+        exit()
     
     
     total_count = 0
@@ -209,32 +224,40 @@ for f in file_path:                #loop for iteration on each file after comple
     data.at[1,' '*31] = 'Longest Subsquence Length'
     data.at[1,' '*32] = 'Count'
     longest_count = {1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0}
-    for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
-        temp = 0
-        for i in range(len(data)-1):
-            if(data.at[i,'octant'] == data.at[i+1,'octant'] and data.at[i,'octant'] == int(x)):
-                temp += 1
-                if(i == len(data)-2):
-                    longest_count[int(x)] = max(longest_count[int(x)],temp+1)
+    try:
+        for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+            temp = 0
+            for i in range(len(data)-1):
+                if(data.at[i,'octant'] == data.at[i+1,'octant'] and data.at[i,'octant'] == int(x)):
+                    temp += 1
+                    if(i == len(data)-2):
+                        longest_count[int(x)] = max(longest_count[int(x)],temp+1)
 
-            
-            else:
-                longest_count[int(x)] = max(longest_count[int(x)],temp+1)
-                temp = 0
+                
+                else:
+                    longest_count[int(x)] = max(longest_count[int(x)],temp+1)
+                    temp = 0
+    except:
+        print('error6')
+        exit()
     longestoccur_count = {1:0,-1:0,2:0,-2:0,3:0,-3:0,4:0,-4:0}
-    for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
-        temp = 0
-        for i in range(len(data)-1):
-            if(data.at[i,'octant'] == data.at[i+1,'octant'] and data.at[i,'octant'] == int(x)):
-                temp += 1
-                if(i == len(data)-2):
+    try:
+        for j, x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
+            temp = 0
+            for i in range(len(data)-1):
+                if(data.at[i,'octant'] == data.at[i+1,'octant'] and data.at[i,'octant'] == int(x)):
+                    temp += 1
+                    if(i == len(data)-2):
+                        if(temp+1 == longest_count[int(x)]):
+                            longestoccur_count[int(x)] += 1
+
+                else:
                     if(temp+1 == longest_count[int(x)]):
                         longestoccur_count[int(x)] += 1
-
-            else:
-                if(temp+1 == longest_count[int(x)]):
-                    longestoccur_count[int(x)] += 1
-                temp = 0
+                    temp = 0
+    except:
+        print('error7')
+        exit()
     for j,x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
         data.at[2+j,'Longest Subsquence Length'] = x
         data.at[2+j,' '*31]= longest_count[int(x)]
@@ -278,8 +301,12 @@ for f in file_path:                #loop for iteration on each file after comple
     output_path = os.path.join("output\\", filename +"_vel_octant_analysis_"+"mod_"+str(mod)+".xlsx") # path of file for printing output
     print(output_path) #code run time is very long so to get idea upto what it is done printing path in the terminal
     data.to_excel(output_path,index = False)   #printing to file without border and colour
-    wb = openpyxl.load_workbook(output_path)  #opened file using openpyxl
-    ws = wb['Sheet1'] #active sheet
+    try:
+        wb = openpyxl.load_workbook(output_path)  #opened file using openpyxl
+        ws = wb['Sheet1'] #active sheet
+    except:
+        print("file doesn't exist" )
+        exit()
     top = Side(border_style = 'thin', color = '000000')
     bottom = Side(border_style = 'thin', color = '000000')  #border specification
     left = Side(border_style = 'thin', color = '000000')
@@ -288,55 +315,60 @@ for f in file_path:                #loop for iteration on each file after comple
 
 
     fill_pattern = PatternFill( start_color ='FFFF00',end_color ='FFFF00', fill_type='solid' )  #colour fill specification
-    for i in range(3, y+5):
-        for j in range(14,33):
-            ws.cell(row = i ,column = j).border = border    #border for table as per sample output file
+    try:
+        for i in range(3, y+5):
+            for j in range(14,33):
+                ws.cell(row = i ,column = j).border = border    #border for table as per sample output file
 
-    for i in range(4,y+5):
-        for j in range(23,31):   
-            if ws.cell(row =i,column=j).value == 1:              #colour which cell value is 1
-                ws.cell(row = i ,column = j).fill = fill_pattern
+        for i in range(4,y+5):
+            for j in range(23,31):   
+                if ws.cell(row =i,column=j).value == 1:              #colour which cell value is 1
+                    ws.cell(row = i ,column = j).fill = fill_pattern
 
-    for i in range(y+6, y+15):
-        for j in range(29,32):
-            ws.cell(row = i ,column = j).border = border
-    for i in range(3, y+8):
-        for j in range(35,44):
-            ws.cell(row = i ,column = j).border = border
-    a =[]
-    for i in range(4, 12):
-        for j in range(36,44):
-            a.append(ws.cell(row = i ,column = j).value)
-        z = max(a)                                              #colour to max value cell
-        for j in range(36,44):
-            if ws.cell(row = i ,column = j).value == z:
-                ws.cell(row = i ,column = j).fill = fill_pattern
-        a = []
-   
-        
-        
-    for i in range(y):
-        for j in range(y+13+i*13, y+22+i*13):
-            for k in range(35,44):
-                ws.cell(row = j ,column = k).border = border
-    b = []
-    for i in range(y):
-        for j in range(y+14+i*13, y+22+i*13):
-            for k in range(36,44):
-                b.append(ws.cell(row = j ,column = k).value)     #colour to max value cell
-            z = max(b)
-            for k in range(36,44):
-                if ws.cell(row = j ,column = k).value == z:
-                    ws.cell(row = j ,column = k).fill = fill_pattern
-            b = []
+        for i in range(y+6, y+15):
+            for j in range(29,32):
+                ws.cell(row = i ,column = j).border = border
+        for i in range(3, y+8):
+            for j in range(35,44):
+                ws.cell(row = i ,column = j).border = border
+        a =[] #creted list to store max value in each row
+        for i in range(4, 12):
+            for j in range(36,44):
+                a.append(ws.cell(row = i ,column = j).value)
+            z = max(a)                                              #colour to max value cell
+            for j in range(36,44):
+                if ws.cell(row = i ,column = j).value == z:
+                    ws.cell(row = i ,column = j).fill = fill_pattern
+            a = []  #making it again 0
+    
+            
+            
+        for i in range(y):
+            for j in range(y+13+i*13, y+22+i*13):
+                for k in range(35,44):
+                    ws.cell(row = j ,column = k).border = border
+        b = []#creted list to store max value in each row
+        for i in range(y):
+            for j in range(y+14+i*13, y+22+i*13):
+                for k in range(36,44):
+                    b.append(ws.cell(row = j ,column = k).value)     #colour to max value cell
+                z = max(b)
+                for k in range(36,44):
+                    if ws.cell(row = j ,column = k).value == z:
+                        ws.cell(row = j ,column = k).fill = fill_pattern
+                b = []   #making it again 0
+    
 
 
-    for i in range(3, 12):
-        for j in range(45,48):
-            ws.cell(row = i ,column = j).border = border
-    for i in range(3, 20+total_count):
-        for j in range(49,52):
-            ws.cell(row = i ,column = j).border = border  
+        for i in range(3, 12):
+            for j in range(45,48):
+                ws.cell(row = i ,column = j).border = border
+        for i in range(3, 20+total_count):
+            for j in range(49,52):
+                ws.cell(row = i ,column = j).border = border  
+    except:
+        print('error in bordering or colouring')
+        exit()
     wb.save(output_path)
 
 
