@@ -256,6 +256,57 @@ for var in Pakistan_bowlers.values(): #economy of indian bowlers
         var[-1] = round((var[2]/var[0]) ,1)
 
 
+Pak_Batters=[]
+for key in Pakistan_bats.keys():
+    Pak_Batters.append(key)
+
+
+for i in range(len(Pakistan_bats)):
+    ws.cell(5+i,1).value = Pak_Batters[i]
+    ws.cell(5+i,5).value = Pakistan_bats[Pak_Batters[i]][0]
+    ws.cell(5+i,6).value = Pakistan_bats[Pak_Batters[i]][1]
+    ws.cell(5+i,7).value = Pakistan_bats[Pak_Batters[i]][2]
+    ws.cell(5+i,8).value = Pakistan_bats[Pak_Batters[i]][3]   #printing the value for pakistan batting in cell
+    ws.cell(5+i,9).value = Pakistan_bats[Pak_Batters[i]][4]
+    if Pak_Batters[i] not in Out_Pakistan_batsman:
+        ws.cell(5+i,3).value = "not out"
+    else:
+        ws.cell(5+i,3).value=Out_Pakistan_batsman[Pak_Batters[i]]
+
+ws.cell(3,1).value = "BATTERS"
+ws["E3"] = "RUNS"
+ws["F3"] = "BALLS"
+ws["G3"] = " 4s "
+ws["H3"] = " 6s "
+ws["I3"] = "  SR  "
+
+
+ws["A18"] = "BOWLER"
+ws["C18"] = "OVER"
+ws["D18"] = "MAIDEN"
+ws["E18"] = "RUNS"
+ws["F18"] = "WICKET"
+ws["G18"] = "NO-BALL"
+ws["H18"] = "WIDE"
+ws["I18"] = "ECONOMY"
+
+Pakistan_Bowlers=[]
+for key in Pakistan_bowlers.keys():
+    Pakistan_Bowlers.append(key)
+
+for i in range(len(Pakistan_bowlers)):
+    ws.cell(42+i,1).value = Pakistan_Bowlers[i]
+    ws.cell(42+i,3).value = Pakistan_bowlers[Pakistan_Bowlers[i]][0]
+    ws.cell(42+i,4).value = Pakistan_bowlers[Pakistan_Bowlers[i]][1]
+    ws.cell(42+i,5).value = Pakistan_bowlers[Pakistan_Bowlers[i]][2]    #printing value for pakistan bowling 
+    ws.cell(42+i,6).value = Pakistan_bowlers[Pakistan_Bowlers[i]][3]
+    ws.cell(42+i,7).value = Pakistan_bowlers[Pakistan_Bowlers[i]][4]
+    ws.cell(42+i,8).value = Pakistan_bowlers[Pakistan_Bowlers[i]][5]
+    ws.cell(42+i,9).value = Pakistan_bowlers[Pakistan_Bowlers[i]][6]
+    Pakistan_bowlers_total+=Pakistan_bowlers[Pakistan_Bowlers[i]][2]
+    Pakistan_fall_of_wickets+=Pakistan_bowlers[Pakistan_Bowlers[i]][3]
+
+
 
 #This shall be the last lines of the code.
 end_time = datetime.now()
