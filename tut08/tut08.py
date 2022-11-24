@@ -362,10 +362,18 @@ for i in range(len(India_bowlers)):
     India_bowlers_total+=India_bowlers[Indian_Bowlers[i]][2]
     Pakistan_fall_of_wickets+=India_bowlers[Indian_Bowlers[i]][3]
 
-Iiand_Total_Score=India_bowlers_total+Pakistan_Byes
+India_total_Score=India_bowlers_total+Pakistan_Byes
 Pakistan_Total_Score = Pakistan_bowlers_total+ind_byes
 
 
+
+
+ws["E27"] = " "+str(India_total_Score) +" - " + str(Pakistan_fall_of_wickets)
+ws["F27"] = str(over_ind)
+Eone=" "+str(Pakistan_Total_Score) +" - " + str(Pakistan_fall_of_wickets)
+Fone = str(Pak_over)
+
+wb.save("Scoreboard.xlsx")
 
 
 #This shall be the last lines of the code.
