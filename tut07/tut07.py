@@ -292,17 +292,45 @@ for f in file_path:                #loop for iteration on each file after comple
         for j in range(14,33):
             ws.cell(row = i ,column = j).border = border    #border for table as per sample output file
 
+    for i in range(4,y+5):
+        for j in range(23,31):   
+            if ws.cell(row =i,column=j).value == 1:              #colour which cell value is 1
+                ws.cell(row = i ,column = j).fill = fill_pattern
+
     for i in range(y+6, y+15):
         for j in range(29,32):
             ws.cell(row = i ,column = j).border = border
     for i in range(3, y+8):
         for j in range(35,44):
             ws.cell(row = i ,column = j).border = border
-    
+    a =[]
+    for i in range(4, 12):
+        for j in range(36,44):
+            a.append(ws.cell(row = i ,column = j).value)
+        z = max(a)                                              #colour to max value cell
+        for j in range(36,44):
+            if ws.cell(row = i ,column = j).value == z:
+                ws.cell(row = i ,column = j).fill = fill_pattern
+        a = []
+   
+        
+        
     for i in range(y):
         for j in range(y+13+i*13, y+22+i*13):
             for k in range(35,44):
                 ws.cell(row = j ,column = k).border = border
+    b = []
+    for i in range(y):
+        for j in range(y+14+i*13, y+22+i*13):
+            for k in range(36,44):
+                b.append(ws.cell(row = j ,column = k).value)     #colour to max value cell
+            z = max(b)
+            for k in range(36,44):
+                if ws.cell(row = j ,column = k).value == z:
+                    ws.cell(row = j ,column = k).fill = fill_pattern
+            b = []
+
+
     for i in range(3, 12):
         for j in range(45,48):
             ws.cell(row = i ,column = j).border = border
