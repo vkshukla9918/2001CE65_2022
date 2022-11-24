@@ -130,8 +130,8 @@ for l in Pakistan:
             India_bowlers[f"{Current_Ball[0].strip()}"][2]+=1
             India_bowlers[f"{Current_Ball[0].strip()}"][5]+=1
 
-for val in Pakistan_bats.values():
-    val[-1]=round((val[0]/val[1])*100 , 2)
+for var in Pakistan_bats.values():
+    var[-1]=round((var[0]/var[1])*100 , 2)
 
 
 
@@ -220,8 +220,40 @@ for l in India:
             Pakistan_bowlers[f"{Current_Ball[0].strip()}"][5]+=1
 
 
+for var in India_bats.values():
+    var[-1]=round((var[0]/var[1])*100 , 2)
+
+for var in Pakistan_bats.values():
+    var[-1]=round((var[0]/var[1])*100 , 2)
+
+for var in India_bowlers.values():
+    if var[0]%6==0:
+        var[0] = var[0]//6
+    else:
+        var[0] = (var[0]//6) + (var[0]%6)/10
+
+for var in Pakistan_bowlers.values():    
+    if var[0]%6==0:
+        var[0] = var[0]//6
+    else:
+        var[0] = (var[0]//6) + (var[0]%6)/10
+
+for var in India_bowlers.values():    #economy of indian bowlers 
+    x=str(var[0])
+    if "." in x:
+        balls = int(x[0])*6 + int(x[2])
+        var[-1]=round((var[2]/balls)*6,1)
+    else:
+        var[-1] = round((var[2]/var[0]) ,1) 
 
 
+for var in Pakistan_bowlers.values(): #economy of indian bowlers
+    x=str(var[0])
+    if "." in x:
+        balls = int(x[0])*6 + int(x[2])
+        var[-1]=round((var[2]/balls)*6,1)
+    else:
+        var[-1] = round((var[2]/var[0]) ,1)
 
 
 
