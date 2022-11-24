@@ -245,16 +245,16 @@ for f in file_path:                #loop for iteration on each file after comple
     data[' '*33] = ' '
     
     
-    data.at[1,'longest Subsquence Length'] = 'octant##'
+    data.at[1,'longest Subsquence Length with range'] = 'octant##'
     data.at[1,' '*34] = 'Longest Subsquence Length'
     data.at[1,' '*35] = 'Count'
     row  = 2
     for j,x in enumerate(['1','-1','2','-2','3','-3','4','-4']):
-        data.at[row,'longest Subsquence Length' ] = x
+        data.at[row,'longest Subsquence Length with range' ] = x
         data.at[row, ' '*34] = longest_count[int(x)]
         data.at[row,' '*35] = longestoccur_count[int(x)]
 
-        data.at[row+1, 'longest Subsquence Length'] = 'Time'
+        data.at[row+1, 'longest Subsquence Length with range'] = 'Time'
         data.at[row+1, ' '*34] = 'From'
         data.at[row+1, ' '*35] = 'To'
         row += 2
