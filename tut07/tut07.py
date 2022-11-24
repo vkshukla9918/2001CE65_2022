@@ -344,12 +344,12 @@ for f in file_path:                #loop for iteration on each file after comple
             
             
         for i in range(y):
-            for j in range(y+13+i*13, y+22+i*13):
+            for j in range(17+i*13, 26+i*13):
                 for k in range(35,44):
                     ws.cell(row = j ,column = k).border = border
         b = []#creted list to store max value in each row
         for i in range(y):
-            for j in range(y+14+i*13, y+22+i*13):
+            for j in range(18+i*13, 26+i*13):
                 for k in range(36,44):
                     b.append(ws.cell(row = j ,column = k).value)     #colour to max value cell
                 z = max(b)
