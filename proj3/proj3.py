@@ -755,116 +755,28 @@ except:
     print('tch is not defined')
 st.write("*"*25)
 st.write('1. previous point\n','2. 2*last-2nd_last\n','3. overall_mean\n','4. 12_point_strategy\n','5. mean of previous 2 point\n','6. all seqential\n','7. all parallel\n')
-sch = int(st.selectbox('Chose Replacement Method From Above:',['0','1','2','3','4','5','6','7'])) 
+sch = int(st.selectbox('Chose Replacement Method From Above:',['0','1','2','3','4','5','6','7']))  #select box for selecting replacement method
 st.write("-"*25)
 
 if sch> 7 or sch == 0:
     st.write('Please enter correct choice...')
 else:
-    
-    try:
-        fileList = open('input_file_list.txt', 'r')
-        files = fileList.readlines()
-    except:
-        print('file is not found')
-    for file in files:
-        input_filename=file.strip()[:-3]+'csv'
-        try:
-            input_data = pd.read_csv(input_filename)
+    if st.button('Compute'):   #created compute button
+        try:                   
+            fileList = open('input_file_list.txt', 'r')
+            files = fileList.readlines()
         except:
-            print(input_filename)
-            continue
-        N=input_data['U'].count()
-        
-        if tch==1 or tch==8:
-            if sch>5:
-                iList = [1,2,3,4,5]
-            else:
-                iList = [sch]
-            for i in iList:
-                if sch==7:
-                    input_data = pd.read_csv(input_filename)
-                data =input_data
-                find_mean()
-                find_std()
-                Corr_All(i,corr)
-                allfunction()
-                name = f"{input_filename}_filtered_by_correlation{corr}_all_replacement_strategy_{i}"
-                write_timestamp_to_file(name)
-                name = add_front_name(name,i)
-                store()
-                
-                data =input_data
-                find_mean()
-                find_std()
-                Corr_One(i,corr)
-                allfunction()
-                name = f"{input_filename}_filtered_by_correlation{corr}_individual_replacement_strategy_{i}"
-                write_timestamp_to_file(name)
-                name = add_front_name(name,i)
-                store()
-        try:
-            if tch==2 or tch==8:
-                if sch>5:
-                    iList = [1,2,3,4,5]
-                else:
-                    iList = [sch]
-                for i in iList:
-                    if sch==7:
-                        input_data = pd.read_csv(input_filename)
-                    data =input_data
-                    find_mean()
-                    find_std()
-                    SNR_All(i,SNR)
-                    allfunction()
-                    name = f"{input_filename}_filtered_by_SNR{SNR}_all_replacement_strategy_{i}"
-                    write_timestamp_to_file(name)    
-                    name = add_front_name(name,i)
-                    store()
-                
-                    data =input_data
-                    find_mean()
-                    find_std()
-                    SNR_One(i,SNR)
-                    allfunction()
-                    name = f"{input_filename}_filtered_by_SNR{SNR}_individual_replacement_strategy_{i}"
-                    write_timestamp_to_file(name)
-                    name = add_front_name(name,i)
-                    store()
-        except:
-            print('SNR for tch = 2 is not defined')
-        try:
-            if tch==3 or tch==8:
-                if sch>5:
-                    iList = [1,2,3,4,5]
-                else:
-                    iList = [sch]
-                for i in iList:
-                    if sch==7:
-                        input_data = pd.read_csv(input_filename)
-                    data =input_data
-                    find_mean()
-                    find_std()
-                    update_acceleration_all_at_time(i)
-                    allfunction()
-                    name = f"{input_filename}_filtered_by_acceleration_1.5_all_replacement_strategy_{i}"
-                    write_timestamp_to_file(name)
-                    name = add_front_name(name,i)
-                    store()
+            print('file is not found')
+        for file in files:
+            input_filename=file.strip()[:-3]+'csv'
+            try:
+                input_data = pd.read_csv(input_filename)
+            except:
+                print(input_filename)
+                continue
+            N=input_data['U'].count()
             
-                    data =input_data
-                    find_mean()
-                    find_std()
-                    update_acceleration_one_at_time(i)
-                    allfunction()
-                    name = f"{input_filename}_filtered_by_acceleration_1.5_individual_replacement_strategy_{i}"
-                    write_timestamp_to_file(name)
-                    name = add_front_name(name,i)
-                    store()
-        except:
-            print('error for tch = 3 case')
-        try:
-            if tch==4 or tch==8:
+            if tch==1 or tch==8:
                 if sch>5:
                     iList = [1,2,3,4,5]
                 else:
@@ -876,9 +788,8 @@ else:
                     find_mean()
                     find_std()
                     Corr_All(i,corr)
-                    SNR_All(i,SNR)
                     allfunction()
-                    name = f"{input_filename}_filtered_by_correlation{corr}_SNR{SNR}_all_replacement_strategy_{i}"
+                    name = f"{input_filename}_filtered_by_correlation{corr}_all_replacement_strategy_{i}"
                     write_timestamp_to_file(name)
                     name = add_front_name(name,i)
                     store()
@@ -887,114 +798,203 @@ else:
                     find_mean()
                     find_std()
                     Corr_One(i,corr)
-                    SNR_One(i,SNR)
                     allfunction()
-                    name = f"{input_filename}_filtered_by_correlation{corr}_SNR{SNR}_individual_replacement_strategy_{i}"
+                    name = f"{input_filename}_filtered_by_correlation{corr}_individual_replacement_strategy_{i}"
                     write_timestamp_to_file(name)
                     name = add_front_name(name,i)
                     store()
-        except:
-            print('SNR or corr is not defined for tch = 4')
-        try:
-            if tch==6 or tch==8:
-                if sch>5:
-                    iList = [1,2,3,4,5]
-                else:
-                    iList = [sch]
-                for i in iList:
-                    if sch==7:
-                        input_data = pd.read_csv(input_filename)
-                    data =input_data
-                    find_mean()
-                    find_std()
-                    SNR_All(i,SNR)
-                    update_acceleration_all_at_time(i)
-                    allfunction()
-                    name = f"{input_filename}_filtered_by_SNR{SNR}_Acceleration_1.5_all_replacement_strategy_{i}"
-                    write_timestamp_to_file(name)
-                    name = add_front_name(name,i)
-                    store()
-                
-                    data =input_data
-                    find_mean()
-                    find_std()
-                    SNR_One(i,SNR)
-                    update_acceleration_all_at_time(i)
-                    allfunction()
-                    name = f"{input_filename}_filtered_by_SNR{SNR}_acceleration_1.5_individual_replacement_strategy_{i}"
-                    write_timestamp_to_file(name)
-                    name = add_front_name(name,i)
-                    store()
-        except:
-            print('SNR is not defined for tch = 6')
-        try:
-            if tch==5 or tch==8:
-                if sch>5:
-                    iList = [1,2,3,4,5]
-                else:
-                    iList = [sch]
-                for i in iList:
-                    if sch==7:
-                        input_data = pd.read_csv(input_filename)
-                    data =input_data
-                    find_mean()
-                    find_std()
-                    Corr_All(i,corr)
-                    update_acceleration_all_at_time(i)
-                    allfunction()
-                    name = f"{input_filename}_filtered_by_correlation{corr}_Acceleration_1.5_all_replacement_strategy_{i}"
-                    write_timestamp_to_file(name)
-                    name = add_front_name(name,i)
-                    store()
-                
-                    data =input_data
-                    find_mean()
-                    find_std()
-                    Corr_One(i,corr)
-                    update_acceleration_all_at_time(i)
-                    allfunction()
-                    name = f"{input_filename}_filtered_by_correlation{corr}_acceleration_1.5_individual_replacement_strategy_{i}"
-                    write_timestamp_to_file(name)
-                    name = add_front_name(name,i)
-                    store()
-        except:
-            print('corr is not defined for tch = 5')
-        try:
-            if tch==7 or tch==8:
-                if sch>5:
-                    iList = [1,2,3,4,5]
-                else:
-                    iList = [sch]
-                for i in iList:
-                    if sch==7:
-                        input_data = pd.read_csv(input_filename)
-                    data =input_data
-                    find_mean()
-                    find_std()
-                    Corr_All(i,corr)
-                    SNR_All(i,SNR)
-                    update_acceleration_all_at_time(i)
-                    allfunction()
-                    name = f"{input_filename}_filtered_by_correlation{corr}_SNR{SNR}_Acceleration_1.5_all_replacement_strategy_{i}"
-                    write_timestamp_to_file(name)
+            try:
+                if tch==2 or tch==8:
+                    if sch>5:
+                        iList = [1,2,3,4,5]
+                    else:
+                        iList = [sch]
+                    for i in iList:
+                        if sch==7:
+                            input_data = pd.read_csv(input_filename)
+                        data =input_data
+                        find_mean()
+                        find_std()
+                        SNR_All(i,SNR)
+                        allfunction()
+                        name = f"{input_filename}_filtered_by_SNR{SNR}_all_replacement_strategy_{i}"
+                        write_timestamp_to_file(name)    
+                        name = add_front_name(name,i)
+                        store()
                     
-                    name = add_front_name(name,i)
-                    store()
+                        data =input_data
+                        find_mean()
+                        find_std()
+                        SNR_One(i,SNR)
+                        allfunction()
+                        name = f"{input_filename}_filtered_by_SNR{SNR}_individual_replacement_strategy_{i}"
+                        write_timestamp_to_file(name)
+                        name = add_front_name(name,i)
+                        store()
+            except:
+                print('SNR for tch = 2 is not defined')
+            try:
+                if tch==3 or tch==8:
+                    if sch>5:
+                        iList = [1,2,3,4,5]
+                    else:
+                        iList = [sch]
+                    for i in iList:
+                        if sch==7:
+                            input_data = pd.read_csv(input_filename)
+                        data =input_data
+                        find_mean()
+                        find_std()
+                        update_acceleration_all_at_time(i)
+                        allfunction()
+                        name = f"{input_filename}_filtered_by_acceleration_1.5_all_replacement_strategy_{i}"
+                        write_timestamp_to_file(name)
+                        name = add_front_name(name,i)
+                        store()
                 
-                    data =input_data
-                    find_mean()
-                    find_std()
-                    Corr_One(i,corr)
-                    SNR_One(i,SNR)
-                    update_acceleration_all_at_time(i)
-                    allfunction()
-                    name = f"{input_filename}_filtered_by_correlation{corr}_SNR{SNR}_acceleration_1.5_individual_replacement_strategy_{i}"
-                    write_timestamp_to_file(name)    
-                    name = add_front_name(name,i)
-                    store()
-        except:
-            print('corr and SNR is not defined for tch = 7')
-        
+                        data =input_data
+                        find_mean()
+                        find_std()
+                        update_acceleration_one_at_time(i)
+                        allfunction()
+                        name = f"{input_filename}_filtered_by_acceleration_1.5_individual_replacement_strategy_{i}"
+                        write_timestamp_to_file(name)
+                        name = add_front_name(name,i)
+                        store()
+            except:
+                print('error for tch = 3 case')
+            try:
+                if tch==4 or tch==8:
+                    if sch>5:
+                        iList = [1,2,3,4,5]
+                    else:
+                        iList = [sch]
+                    for i in iList:
+                        if sch==7:
+                            input_data = pd.read_csv(input_filename)
+                        data =input_data
+                        find_mean()
+                        find_std()
+                        Corr_All(i,corr)
+                        SNR_All(i,SNR)
+                        allfunction()
+                        name = f"{input_filename}_filtered_by_correlation{corr}_SNR{SNR}_all_replacement_strategy_{i}"
+                        write_timestamp_to_file(name)
+                        name = add_front_name(name,i)
+                        store()
+                        
+                        data =input_data
+                        find_mean()
+                        find_std()
+                        Corr_One(i,corr)
+                        SNR_One(i,SNR)
+                        allfunction()
+                        name = f"{input_filename}_filtered_by_correlation{corr}_SNR{SNR}_individual_replacement_strategy_{i}"
+                        write_timestamp_to_file(name)
+                        name = add_front_name(name,i)
+                        store()
+            except:
+                print('SNR or corr is not defined for tch = 4')
+            try:
+                if tch==6 or tch==8:
+                    if sch>5:
+                        iList = [1,2,3,4,5]
+                    else:
+                        iList = [sch]
+                    for i in iList:
+                        if sch==7:
+                            input_data = pd.read_csv(input_filename)
+                        data =input_data
+                        find_mean()
+                        find_std()
+                        SNR_All(i,SNR)
+                        update_acceleration_all_at_time(i)
+                        allfunction()
+                        name = f"{input_filename}_filtered_by_SNR{SNR}_Acceleration_1.5_all_replacement_strategy_{i}"
+                        write_timestamp_to_file(name)
+                        name = add_front_name(name,i)
+                        store()
+                    
+                        data =input_data
+                        find_mean()
+                        find_std()
+                        SNR_One(i,SNR)
+                        update_acceleration_all_at_time(i)
+                        allfunction()
+                        name = f"{input_filename}_filtered_by_SNR{SNR}_acceleration_1.5_individual_replacement_strategy_{i}"
+                        write_timestamp_to_file(name)
+                        name = add_front_name(name,i)
+                        store()
+            except:
+                print('SNR is not defined for tch = 6')
+            try:
+                if tch==5 or tch==8:
+                    if sch>5:
+                        iList = [1,2,3,4,5]
+                    else:
+                        iList = [sch]
+                    for i in iList:
+                        if sch==7:
+                            input_data = pd.read_csv(input_filename)
+                        data =input_data
+                        find_mean()
+                        find_std()
+                        Corr_All(i,corr)
+                        update_acceleration_all_at_time(i)
+                        allfunction()
+                        name = f"{input_filename}_filtered_by_correlation{corr}_Acceleration_1.5_all_replacement_strategy_{i}"
+                        write_timestamp_to_file(name)
+                        name = add_front_name(name,i)
+                        store()
+                    
+                        data =input_data
+                        find_mean()
+                        find_std()
+                        Corr_One(i,corr)
+                        update_acceleration_all_at_time(i)
+                        allfunction()
+                        name = f"{input_filename}_filtered_by_correlation{corr}_acceleration_1.5_individual_replacement_strategy_{i}"
+                        write_timestamp_to_file(name)
+                        name = add_front_name(name,i)
+                        store()
+            except:
+                print('corr is not defined for tch = 5')
+            try:
+                if tch==7 or tch==8:
+                    if sch>5:
+                        iList = [1,2,3,4,5]
+                    else:
+                        iList = [sch]
+                    for i in iList:
+                        if sch==7:
+                            input_data = pd.read_csv(input_filename)
+                        data =input_data
+                        find_mean()
+                        find_std()
+                        Corr_All(i,corr)
+                        SNR_All(i,SNR)
+                        update_acceleration_all_at_time(i)
+                        allfunction()
+                        name = f"{input_filename}_filtered_by_correlation{corr}_SNR{SNR}_Acceleration_1.5_all_replacement_strategy_{i}"
+                        write_timestamp_to_file(name)
+                        
+                        name = add_front_name(name,i)
+                        store()
+                    
+                        data =input_data
+                        find_mean()
+                        find_std()
+                        Corr_One(i,corr)
+                        SNR_One(i,SNR)
+                        update_acceleration_all_at_time(i)
+                        allfunction()
+                        name = f"{input_filename}_filtered_by_correlation{corr}_SNR{SNR}_acceleration_1.5_individual_replacement_strategy_{i}"
+                        write_timestamp_to_file(name)    
+                        name = add_front_name(name,i)
+                        store()
+            except:
+                print('corr and SNR is not defined for tch = 7')
+        st.success('Done')
 
 end_time = datetime.now()
 
