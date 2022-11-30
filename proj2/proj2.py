@@ -397,6 +397,12 @@ if Mod != 0 &b:
 
 			
 			wb.save(filename + '_mod'+str(mod) +'_' + timestr +'.xlsx')
-			
+			try:
+				with open (filename + '_mod'+str(mod) +'_' + timestr +'.xlsx', 'rb') as path:
+					x = path.read()
+			except:
+				print('output file is not found')
+			st.download_button("Download the output file" + filename,data = x, file_name = filename + '_mod'+str(mod) +'_' + timestr +'.xlsx' )
+#This shall be the last lines of the code.
 end_time = datetime.now()
 print('Duration of Program Execution: {}'.format(end_time - start_time))
