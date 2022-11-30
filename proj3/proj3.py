@@ -721,7 +721,7 @@ def add_front_name(name,x):
 st.write("-"*25)
 
 st.write('1. C\n','2. S\n','3. A\n','4. C & S\n','5. C & A\n','6. S & A\n','7. C & S & A\n','8. all combine\n')
-tch = int(st.selectbox('Chose Filtering Method From Above:',['0','1','2','3','4','5','6','7','8']))
+tch = int(st.selectbox('Chose Filtering Method From Above:',['0','1','2','3','4','5','6','7','8']))   #added selectbox for choosing filtering method
 
 st.write("-"*25)
 try:
@@ -754,7 +754,7 @@ try:
 except:
     print('tch is not defined')
 st.write("*"*25)
-st.write('1. previous point\n','2. 2*last-2nd_last\n','3. overall_mean\n','4. 12_point_strategy\n','5. mean of previous 2 point\n','6. all seqential\n','7. all parallel\n')
+st.write('1. previous point\n','2. 2*last-2nd_last\n','3. overall_mean\n','4. 12_point_strategy\n','5. mean of previous 2 point\n','6. all seqential\n','7. all parallel\n') #st.write for writing on webpage
 sch = int(st.selectbox('Chose Replacement Method From Above:',['0','1','2','3','4','5','6','7']))  #select box for selecting replacement method
 st.write("-"*25)
 
@@ -994,7 +994,7 @@ else:
                         store()
             except:
                 print('corr and SNR is not defined for tch = 7')
-        st.success('Done')
+        st.success('Done')  #this would be printed after execution of code
 
 end_time = datetime.now()
 
